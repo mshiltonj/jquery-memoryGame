@@ -39,6 +39,17 @@ if (jQuery){
             "images/toys.png"
         ];
 
+        function shuffle(ary){
+            idx = ary.length - 1;
+
+            while(idx > 0){
+                jdx = parseInt(Math.random() * 10)
+                tmp = ary[idx];
+                ary[idx] = ary[jdx]
+                ary[jdx] = tmp;
+                idx--;
+            }
+        }
 
         function init($div, options){
             var idx = 0, jdx = 0; var tmp;
@@ -49,17 +60,17 @@ if (jQuery){
 
             var $board = $('<div />').addClass('memoryGameBoard').appendTo($div);
 
+            $("<div />").addClass('clear').appendTo($div);
             var $stat =$('<div />').addClass('memoryGameStats').appendTo($div);
 
-
-            var $movesStat = $('<div />').addClass("memoryGameMovesStat");
-            $('<span />').addClass('memoryGameMovesLabel').text('Moves').appendTo($movesStat);
+            var $movesStat = $('<div />').addClass("memoryGameMovesStat memoryGameStat");
+            $('<span />').addClass('memoryGameMovesLabel  memoryGameStatLabel').text('Moves').appendTo($movesStat);
             $('<span />').addClass('memoryGameMovesData').text($.memoryGame.data.moves).appendTo($movesStat);
             $movesStat.appendTo($stat);
 
 
-            var $timeStat = $('<div />').addClass("memoryGameTimeStat");
-            $('<span />').addClass('memoryGameTimeLabel').text('Time').appendTo($timeStat);
+            var $timeStat = $('<div />').addClass("memoryGameTimeStat memoryGameStat");
+            $('<span />').addClass('memoryGameTimeLabel memoryGameStatLabel').text('Time').appendTo($timeStat);
             $('<span />').addClass('memoryGameTimeData').text("0:00").appendTo($timeStat);
             $timeStat.appendTo($stat);
 
@@ -71,15 +82,10 @@ if (jQuery){
                 ary.push(idx);
             }
 
-            idx = ary.length - 1;
-
-            while(idx > 0){
-                jdx = parseInt(Math.random() * 10)
-                tmp = ary[idx];
-                ary[idx] = ary[jdx]
-                ary[jdx] = tmp;
-                idx--;
+            for (idx = 0 ; idx < 3; idx++){
+                shuffle(ary);
             }
+
 
             console.debug($div);
             var idx = 0;
