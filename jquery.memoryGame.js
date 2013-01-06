@@ -74,6 +74,17 @@ if (jQuery){
             $('<span />').addClass('memoryGameTimeData').text("0:00").appendTo($timeStat);
             $timeStat.appendTo($stat);
 
+
+            var $restartStat  = $('<div />').addClass("memoryGameStat");
+            $('<input />').attr({id : 'memoryGameRestartButton', value: 'New Game', type:'button'}).appendTo($restartStat).hide();
+            $restartStat.appendTo($stat);
+
+            $('#memoryGameRestartButton').click( function(){
+                startGame();
+            })
+
+
+
             $.memoryGame.data.intervalId = setInterval(updateTime, 1000);
 
             ary = [];
@@ -115,6 +126,11 @@ if (jQuery){
 
         function endGame(){
             clearInterval($.memoryGame.data.intervalId);
+            $('#memoryGameRestartButton').show();
+        }
+
+        function startGame(){
+            $.memoryGame.init();
         }
 
         function selectCard(evt){
